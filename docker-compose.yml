@@ -1,20 +1,22 @@
 version: "3.7"
 services:
-  api_gw:
+  api:
     build:
       args:
         user: lucas
         uid: 1000
-      context: ./API-GW
+      context: ./API
       dockerfile: Dockerfile
-    image: api_gw
-    container_name: api_gw-app
+    image: api
+    container_name: api-app
     restart: unless-stopped
     working_dir: /var/www/
+    ports:
+      - 8000:8000
     depends_on:
       - db
     volumes:
-      - ./API-GW/app:/var/www
+      - ./API/app:/var/www
     networks:
       - travellist
   
@@ -29,7 +31,7 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - api_gw
+      - api
     volumes:
       - ./FrontEnd/app:/app
     networks:
