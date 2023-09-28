@@ -1,0 +1,9 @@
+#ignore node_modules folder
+node_modules/
+build/
+
+#ignore npm-debug.log file
+npm-debug.log
+
+#ignore .DS_Store file
+.DS_Store

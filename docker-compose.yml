@@ -1,20 +1,37 @@
 version: "3.7"
 services:
-  app:
+  api_gw:
     build:
       args:
         user: lucas
         uid: 1000
-      context: ./
+      context: ./API-GW
       dockerfile: Dockerfile
-    image: travellist
-    container_name: travellist-app
+    image: api_gw
+    container_name: api_gw-app
     restart: unless-stopped
     working_dir: /var/www/
     depends_on:
       - db
     volumes:
-      - ./docker-compose/app:/var/www
+      - ./API-GW/app:/var/www
+    networks:
+      - travellist
+  
+  frontend:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    image: frontend
+    container_name: frontend-app
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - 3000:3000
+    depends_on:
+      - api_gw
+    volumes:
+      - ./FrontEnd/app:/app
     networks:
       - travellist
 
@@ -27,18 +44,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
-    networks:
-      - travellist
-
-  nginx:
-    image: nginx:alpine
-    container_name: travellist-nginx
-    restart: unless-stopped
-    ports:
-      - 8000:80
-    volumes:
-      - ./docker-compose/app:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - travellist
 

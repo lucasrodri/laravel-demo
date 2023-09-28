@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-fpm AS base
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -28,12 +28,20 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+#Copy the run.sh file
+COPY run.sh /usr/bin/run.sh
+
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+    chown -R $user:$user /home/$user && \
+    chmod +x /usr/bin/run.sh
 
 # Set working directory
 WORKDIR /var/www
 
 USER $user
+
+EXPOSE 8000
+
+CMD ["/usr/bin/run.sh"]
