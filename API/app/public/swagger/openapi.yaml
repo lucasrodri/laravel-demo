@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+  title: 'Swagger API documentation'
+  contact:
+    email: lucasrc.rodri@gmail.com
+  version: 1.0.0
+paths:
+  /api/students:
+    get:
+      operationId: e4f0d952747276208d5e417c601ee049
+      responses:
+        '200':
+          description: 'Display a listing of the resource'
+    post:
+      operationId: 35ebbddb86720f9bffc06bb674a4568a
+      responses:
+        '201':
+          description: 'Display a listing of the resource'
+  '/api/students/{id}':
+    get:
+      operationId: 5a976c9a8c3cbab8cb6e103ea06cb9f8
+      responses:
+        '200':
+          description: 'Display a listing of the resource'
+    put:
+      operationId: 522fbb9e7a947ea1a6580121da4c602f
+      responses:
+        '200':
+          description: 'Display a listing of the resource'
+    delete:
+      operationId: 2d220c8698b0ea5fc68d5d69656e058b
+      responses:
+        '202':
+          description: 'Display a listing of the resource'

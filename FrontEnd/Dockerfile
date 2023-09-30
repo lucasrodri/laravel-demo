@@ -8,12 +8,12 @@ ENV NODE_ENV development
 WORKDIR /react-app
 
 # Installing dependencies
-COPY ./app/package.json /react-app
-RUN npm install
+#COPY ./app/package.json /react-app
+#RUN npm install
 
 # Copying all the files in our project
 #Nao vai precisar pois eu faço o bind no docker-compose
 #COPY ./app .
 
 # Starting our application
-CMD npm start
+CMD ["npm", "start"]

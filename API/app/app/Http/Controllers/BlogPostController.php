@@ -13,10 +13,10 @@ class BlogPostController extends Controller
     public function index()
     {
         $posts = BlogPost::all(); //fetch all blog posts from DB
-	    //return $posts; //returns the fetched posts
-        return view('blog.index', [
-            'posts' => $posts,
-        ]); //returns the view with posts
+	    return $posts; //returns the fetched posts
+        //return view('blog.index', [
+        //    'posts' => $posts,
+        //]); //returns the view with posts
     }
 
     /**
@@ -46,10 +46,10 @@ class BlogPostController extends Controller
      */
     public function show(BlogPost $blogPost)
     {
-        //return $blogPost; //returns the fetched posts
-        return view('blog.show', [
-            'post' => $blogPost,
-        ]); //returns the view with the post
+        return $blogPost; //returns the fetched posts
+        //return view('blog.show', [
+        //    'post' => $blogPost,
+        //]); //returns the view with the post
     }
 
     /**

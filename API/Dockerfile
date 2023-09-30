@@ -37,6 +37,9 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user && \
     chmod +x /usr/bin/run.sh
 
+# Install PHP Sockets para funcionamiento do rabbitmq
+RUN docker-php-ext-install sockets
+
 # Set working directory
 WORKDIR /var/www
 
