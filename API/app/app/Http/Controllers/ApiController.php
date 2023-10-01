@@ -14,7 +14,7 @@ use OpenApi\Annotations as OA;
  *         email="lucasrc.rodri@gmail.com"
  *    )
  * )
- */ 
+ */
 class ApiController extends Controller
 {
     /**
@@ -55,15 +55,22 @@ class ApiController extends Controller
      */
     public function getStudent($id)
     {
-        if (Student::where('id', $id)->exists()) {
-            $student = Student::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($student, 200);
-        } else {
+        try {
+            $student = Student::find($id);
+            if ($student) {
+                return response()->json($student, 200);
+            } else {
+                return response()->json([
+                    "message" => "Student not found"
+                ], 200);
+            }
+        } catch (\Throwable $th) {
             return response()->json([
                 "message" => "Student not found"
             ], 404);
         }
     }
+
 
     /**
      * @OA\Put(
