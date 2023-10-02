@@ -40,6 +40,26 @@ services:
     ports:
       - 8001:8000
 
+  pessoas:
+    image: pessoas
+    container_name: pessoas-app
+    build:
+      args:
+        user: lucas
+        uid: 1000
+      context: ./PESSOAS
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+    networks:
+      - progredir
+    volumes:
+      - ./PESSOAS/app:/var/www
+    ports:
+      - 8002:8000
+
   frontend:
     build:
       context: ./FrontEnd
