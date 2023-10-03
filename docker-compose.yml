@@ -40,14 +40,14 @@ services:
     ports:
       - 8001:8000
 
-  pessoas:
-    image: pessoas
-    container_name: pessoas-app
+  trabalhador:
+    image: trabalhador
+    container_name: trabalhador-app
     build:
       args:
         user: lucas
         uid: 1000
-      context: ./PESSOAS
+      context: ./TRABALHADOR
       dockerfile: Dockerfile
     restart: unless-stopped
     working_dir: /var/www/
@@ -56,7 +56,7 @@ services:
     networks:
       - progredir
     volumes:
-      - ./PESSOAS/app:/var/www
+      - ./TRABALHADOR/app:/var/www
     ports:
       - 8002:8000
 

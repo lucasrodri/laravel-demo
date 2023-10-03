@@ -1,4 +1,4 @@
-# PESSOAS 
+# TRABALHADOR 
 
 Defina as senhas no .env da sua aplicação manualmente. 
 

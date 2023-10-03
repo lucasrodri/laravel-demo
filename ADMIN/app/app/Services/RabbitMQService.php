@@ -13,11 +13,11 @@ class RabbitMQService
         $connection = new AMQPStreamConnection(env('MQ_HOST'), env('MQ_PORT'), env('MQ_USER'), env('MQ_PASS'), env('MQ_VHOST'));
         $channel = $connection->channel();
         $channel->exchange_declare('test_exchange', 'direct', false, false, false);
-        $channel->queue_declare('test_queue', false, false, false, false);
-        $channel->queue_bind('test_queue', 'test_exchange', 'test_key');
+        $channel->queue_declare('admin_queue', false, false, false, false);
+        $channel->queue_bind('admin_queue', 'test_exchange', 'test_key');
         $msg = new AMQPMessage($message);
         $channel->basic_publish($msg, 'test_exchange', 'test_key');
-        echo " [x] Sent $message to test_exchange / test_queue.\n";
+        echo " [x] Sent $message to test_exchange / admin_queue.\n";
         $channel->close();
         $connection->close();
     }
@@ -25,13 +25,18 @@ class RabbitMQService
     {
         $connection = new AMQPStreamConnection(env('MQ_HOST'), env('MQ_PORT'), env('MQ_USER'), env('MQ_PASS'), env('MQ_VHOST'));
         $channel = $connection->channel();
-        $callback = function ($msg) {
+        $continueConsuming = true;
+        $callback = function ($msg) use (&$continueConsuming) {
             echo ' [x] Received ', $msg->body, "\n";
+            if ($msg->body === 'quit') {
+                echo ' [x] Quitting consumer', "\n";
+                $continueConsuming = false;
+            }
         };
-        $channel->queue_declare('test_queue', false, false, false, false);
-        $channel->basic_consume('test_queue', '', false, true, false, false, $callback);
-        echo 'Waiting for new message on test_queue', " \n";
-        while (count($channel->callbacks) > 0) {
+        $channel->queue_declare('admin_queue', false, false, false, false);
+        $channel->basic_consume('admin_queue', '', false, true, false, false, $callback);
+        echo 'Waiting for new message on admin_queue', " \n";
+        while ($continueConsuming && count($channel->callbacks) > 0) {
             $channel->wait();
         }
         $channel->close();
@@ -46,8 +51,8 @@ class RabbitMQService
             $html .= ' [x] Received ' . $msg->body . "\n";
         };
         echo $html;
-        $channel->queue_declare('test_queue', false, false, false, false);
-        $channel->basic_consume('test_queue', '', false, true, false, false, $callback);
+        $channel->queue_declare('admin_queue', false, false, false, false);
+        $channel->basic_consume('admin_queue', '', false, true, false, false, $callback);
         $channel->close();
         $connection->close();
         return $html;
