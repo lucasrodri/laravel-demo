@@ -16,3 +16,28 @@ cp app/.env.example app/.env
 sed -i "s/DB_PASSWORD=/DB_PASSWORD=$DB_PASSWORD/" app/.env
 sed -i "s/MQ_PASS=/MQ_PASS=\"$MQ_PASS\"/" app/.env
 ```
+
+Criando uma nova entidade com migration, model e controller:
+
+```sh
+php artisan make:model AdminTable
+php artisan make:migration create_admin_tables_table
+```
+
+> Obs.: É obrigatório o uso do prefixo `create_` e sufixo `_table` no comando acima. Também deve-se seguir o padrão da model com `_` e um `s` no final
+
+### Na migration adiciona as seguintes colunas:
+
+- $table->text('title');  
+- $table->text('body'); 
+
+Na Model adiciona as seguintes colunas:
+
+- protected $fillable = ['title', 'body'];
+
+Volte no terminal do container e faça:
+
+```sh
+php artisan migrate
+php artisan make:controller AdminTableController -m AdminTable
+```

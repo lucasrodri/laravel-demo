@@ -13,6 +13,7 @@ services:
     working_dir: /var/www/
     depends_on:
       - db
+      - rabbitmq
     networks:
       - progredir
     volumes:
@@ -33,6 +34,7 @@ services:
     working_dir: /var/www/
     depends_on:
       - db
+      - rabbitmq
     networks:
       - progredir
     volumes:
@@ -53,6 +55,7 @@ services:
     working_dir: /var/www/
     depends_on:
       - db
+      - rabbitmq
     networks:
       - progredir
     volumes:
