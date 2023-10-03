@@ -1,0 +1,115 @@
+version: "3.7"
+services:
+  api:
+    image: api
+    container_name: api-app
+    build:
+      args:
+        user: lucas
+        uid: 1000
+      context: ./API
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+    networks:
+      - progredir
+    volumes:
+      - ./API/app:/var/www
+    ports:
+      - 8000:8000
+
+  administrador:
+    image: administrador
+    container_name: administrador-app
+    build:
+      args:
+        user: lucas
+        uid: 1000
+      context: ./ADMIN
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+    networks:
+      - progredir
+    volumes:
+      - ./ADMIN/app:/var/www
+    ports:
+      - 8001:8000
+
+  pessoas:
+    image: pessoas
+    container_name: pessoas-app
+    build:
+      args:
+        user: lucas
+        uid: 1000
+      context: ./PESSOAS
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+    networks:
+      - progredir
+    volumes:
+      - ./PESSOAS/app:/var/www
+    ports:
+      - 8002:8000
+
+  frontend:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    image: frontend
+    container_name: frontend-app
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    networks:
+      - progredir
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-app 
+    ports: 
+    - 25672:25672 # (erlang) communication between the nodes and CLI tool
+    - 15672:15672 # communication with the web management API 
+    volumes:
+    - ./docker-compose/rabbitmq/data/:/var/lib/rabbitmq/
+    environment:
+    - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+    - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    restart: unless-stopped
+    networks:
+      - progredir
+
+  linux:
+    build:
+      context: ./Linux
+      dockerfile: Dockerfile
+    networks:
+      - progredir
+
+  db:
+    image: postgres:14.8-alpine3.18
+    container_name: db-app
+    restart: unless-stopped
+    volumes:
+      - ./docker-compose/postgres:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: ${DB_DATABASES}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+    networks:
+      - progredir
+
+networks:
+  progredir:
+    driver: bridge

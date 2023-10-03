@@ -23,6 +23,9 @@ export const AppRoutes = () => {
             <li class="nav-item">
               <Link to='/students' className="nav-link" >Students API</Link>
             </li>
+            <li class="nav-item">
+              <Link to='/students/create' className="nav-link" >Students API (Create)</Link>
+            </li>
           </ul>
         </div>
       </nav>

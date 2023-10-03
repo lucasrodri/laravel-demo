@@ -12,10 +12,40 @@ paths:
         '200':
           description: 'Display a listing of the resource'
     post:
+      summary: 'Criar um novo estudante'
+      description: 'Cria um novo estudante com nome e curso.'
       operationId: 35ebbddb86720f9bffc06bb674a4568a
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: João
+                course:
+                  type: string
+                  example: 'Ciência da Computação'
+              type: object
       responses:
         '201':
-          description: 'Display a listing of the resource'
+          description: 'Estudante criado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Estudante criado com sucesso' }
+                  id: { type: integer, example: 1 }
+                type: object
+        '400':
+          description: 'Erro na criação do estudante'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Erro na criação do estudante' }
+                type: object
   '/api/students/{id}':
     get:
       operationId: 5a976c9a8c3cbab8cb6e103ea06cb9f8

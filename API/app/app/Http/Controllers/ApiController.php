@@ -29,21 +29,51 @@ class ApiController extends Controller
         return response($students, 200);
     }
 
+    
     /**
      * @OA\Post(
      *     path="/api/students",
-     *     @OA\Response(response="201", description="Display a listing of the resource")
+     *     summary="Criar um novo estudante",
+     *     description="Cria um novo estudante com nome e curso.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="João"),
+     *             @OA\Property(property="course", type="string", example="Ciência da Computação")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Estudante criado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Estudante criado com sucesso"),
+     *             @OA\Property(property="id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Erro na criação do estudante",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Erro na criação do estudante")
+     *         )
+     *     )
      * )
      */
     public function createStudent(Request $request)
     {
-        $student = new Student;
-        $student->name = $request->name;
-        $student->course = $request->course;
-        $student->save();
-
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'course' => 'required|string',
+        ]);
+    
+        $student = Student::create([
+            'name' => $validatedData['name'],
+            'course' => $validatedData['course'],
+        ]);
+    
         return response()->json([
-            "message" => "student record created"
+            "message" => "Estudante criado com sucesso",
+            "id" => $student->id
         ], 201);
     }
 
