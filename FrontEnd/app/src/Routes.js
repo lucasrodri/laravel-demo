@@ -1,11 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ContactPage } from './pages/ContactPage';
 import { APIDataPage } from './pages/APIDataPage';
-import { APIStudentShowAll, APIStudentShowOne, APIStudentCreateEdit } from './pages/APIStudentPage';
-import { APIAdminShowAll, APIAdminShowOne, APIAdminCreateEdit } from './pages/APIAdminPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+import StudentsRoutes from './routes/StudentsRoutes'; 
+import AdminsRoutes from './routes/AdminsRoutes'; 
+import TrabsRoutes from './routes/TrabsRoutes';
+
 export const AppRoutes = () => {
+  const studentsRoutes = StudentsRoutes();
+  const adminsRoutes = AdminsRoutes();
+  const trabsRoutes = TrabsRoutes();
   return (
     <Router>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,22 +32,21 @@ export const AppRoutes = () => {
             <li class="nav-item">
               <Link to='/admins' className="nav-link" >Admin API</Link>
             </li>
+            <li class="nav-item">
+              <Link to='/trabs' className="nav-link" >Trab API</Link>
+            </li>
           </ul>
         </div>
       </nav>
       <Routes>
         <Route path='/' element={<ContactPage />} />
         <Route path='/pagina2' element={<APIDataPage />} />
-        {/* Rotas da API students */}
-        <Route path='/students' element={<APIStudentShowAll />} />
-        <Route path='/students/:id' element={<APIStudentShowOne />} />
-        <Route path='/students/:id/edit' element={<APIStudentCreateEdit />} />
-        <Route path='/students/create' element={<APIStudentCreateEdit />} />
-        {/* Rotas da API admins */}
-        <Route path='/admins' element={<APIAdminShowAll />} />
-        <Route path='/admins/:id' element={<APIAdminShowOne />} />
-        <Route path='/admins/:id/edit' element={<APIAdminCreateEdit />} />
-        <Route path='/admins/create' element={<APIAdminCreateEdit />} />
+        
+        {/* Rotas da API */}
+        {studentsRoutes}
+        {adminsRoutes}
+        {trabsRoutes}
+
         {/* Rota coringa para a página "Not Found" */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

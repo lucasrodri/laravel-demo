@@ -43,3 +43,10 @@ Route::get('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'get
 Route::post('admins', [\App\Http\Controllers\ApiAdminController::class, 'createAdmin']);
 Route::put('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'updateAdmin']);
 Route::delete('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'deleteAdmin']);
+
+# Rotas para o CRUD de elementos do microserviço de trabalhador
+Route::get('trabs', [\App\Http\Controllers\ApiTrabController::class, 'getAllTrabs']);
+Route::get('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'getTrab']);
+Route::post('trabs', [\App\Http\Controllers\ApiTrabController::class, 'createTrab']);
+Route::put('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'updateTrab']);
+Route::delete('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'deleteTrab']);

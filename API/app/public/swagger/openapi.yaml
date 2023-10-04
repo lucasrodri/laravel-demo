@@ -229,3 +229,170 @@ paths:
       responses:
         '202':
           description: 'Display a listing of the resource'
+  /api/trabs:
+    get:
+      tags:
+        - Trabs
+      summary: 'Obtenha uma lista de trabalhadores'
+      operationId: 6f21555f7a623041b507bf302d28359c
+      responses:
+        '200':
+          description: 'Retorna uma lista de trabalhadores'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: SHOW }
+                  content: { type: array, items: { type: object } }
+                  status: { type: integer, example: 200 }
+                type: object
+    post:
+      tags:
+        - Trabs
+      summary: 'Criar um novo trab'
+      description: 'Cria um novo trab com nome e texto.'
+      operationId: 6eff0ee6fde1be40567ccf647d6b811a
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  example: João
+                body:
+                  type: string
+                  example: 'Ciência da Computação'
+              type: object
+      responses:
+        '201':
+          description: 'Trab criado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Trab criado com sucesso' }
+                  id: { type: integer, example: 1 }
+                type: object
+        '400':
+          description: 'Erro na criação do trab'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Erro na criação do trab' }
+                type: object
+  '/api/trabs/{id}':
+    get:
+      tags:
+        - Trabs
+      summary: 'Obtém informações de um trabistrador'
+      operationId: 793cee4dda5139e21921178d9d77ef67
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do trabistrador a ser consultado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Informações do trabistrador'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: READ }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Trab não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Trab não encontrado' }
+                type: object
+    put:
+      tags:
+        - Trabs
+      summary: 'Atualiza um trabistrador'
+      operationId: 1809349c80d766cdd8a520da60eab19e
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do trabistrador a ser atualizado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: 'Dados do trabistrador para atualização'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  description: 'Nome do trabistrador'
+                  type: string
+                body:
+                  description: 'Curso do trabistrador'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'Trab atualizado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Registros atualizados com sucesso' }
+                type: object
+        '404':
+          description: 'Trab não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Trab não encontrado' }
+                type: object
+    delete:
+      tags:
+        - Trabs
+      summary: 'Deleta um trabistrador'
+      operationId: 6aca6321f6e2fd81fc4950f35310372a
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do trabistrador a ser deletado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '202':
+          description: 'Trabistrador deletado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: DELETE }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Trab não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Trab não encontrado' }
+                type: object
