@@ -10,9 +10,6 @@ php artisan key:generate
 # Execute outras configurações (como migrações de banco de dados, se necessário)
 php artisan migrate
 
-# Iniciar o servidor Laravel
-php artisan serve --host=0.0.0.0 --port=8000 &
-
 # Esperar até que o RabbitMQ esteja acessível
 until curl -f http://rabbitmq:15672
 do

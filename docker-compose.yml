@@ -39,8 +39,6 @@ services:
       - progredir
     volumes:
       - ./ADMIN/app:/var/www
-    ports:
-      - 8001:8000
 
   trabalhador:
     image: trabalhador
@@ -60,8 +58,6 @@ services:
       - progredir
     volumes:
       - ./TRABALHADOR/app:/var/www
-    ports:
-      - 8002:8000
 
   frontend:
     build:

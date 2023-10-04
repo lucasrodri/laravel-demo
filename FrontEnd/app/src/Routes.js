@@ -24,9 +24,6 @@ export const AppRoutes = () => {
               <Link to='/' className="nav-link" >Home <span class="sr-only">(current)</span></Link>
             </li>
             <li class="nav-item">
-              <Link to='/pagina2' className="nav-link" >Page 2</Link>
-            </li>
-            <li class="nav-item">
               <Link to='/students' className="nav-link" >Students API</Link>
             </li>
             <li class="nav-item">
@@ -40,7 +37,6 @@ export const AppRoutes = () => {
       </nav>
       <Routes>
         <Route path='/' element={<ContactPage />} />
-        <Route path='/pagina2' element={<APIDataPage />} />
         
         {/* Rotas da API */}
         {studentsRoutes}
