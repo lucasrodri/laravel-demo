@@ -65,7 +65,8 @@ $ docker-compose up -d --build
  Entre no navegador e acesse os seguintes  endereço:
  
  - [http://localhost:3000](http://localhost:3000) -> FrontEnd
-- [http://localhost:8000/swagger](http://localhost:8000/swagger) -> API
+ - [http://localhost:8000/swagger](http://localhost:8000/swagger) -> API
+ - [http://localhost:15672](http://localhost:15672) -> RABBITMQ
 
 ## Equipe
 * [Diego José Macedo](mailto:diegomacedo@ibict.br)

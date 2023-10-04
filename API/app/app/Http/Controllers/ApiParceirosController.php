@@ -38,7 +38,7 @@ class ApiParceirosController extends Controller
             'action' => 'SHOW'
         ];
         $mqService = new RabbitMQService();
-        $mqService->publish(json_encode($message), "parceirosalhador_queue");
+        $mqService->publish(json_encode($message), "parceiros_queue");
         $response_message = $mqService->consume_queue("api_queue_".$uuidString);
 
         $mqService->deleteQueue("api_queue_".$uuidString);
@@ -96,7 +96,7 @@ class ApiParceirosController extends Controller
             'body' => $validatedData['body']
         ];
         $mqService = new RabbitMQService();
-        $mqService->publish(json_encode($message), "parceirosalhador_queue");
+        $mqService->publish(json_encode($message), "parceiros_queue");
         $response_message = $mqService->consume_queue("api_queue_".$uuidString);
 
         $mqService->deleteQueue("api_queue_".$uuidString);
@@ -150,7 +150,7 @@ class ApiParceirosController extends Controller
             'id' => $id
         ];
         $mqService = new RabbitMQService();
-        $mqService->publish(json_encode($message), "parceirosalhador_queue");
+        $mqService->publish(json_encode($message), "parceiros_queue");
         $response_message = $mqService->consume_queue("api_queue_".$uuidString);
 
         $mqService->deleteQueue("api_queue_".$uuidString);
@@ -217,7 +217,7 @@ class ApiParceirosController extends Controller
             'body' => $validatedData['body']
         ];
         $mqService = new RabbitMQService();
-        $mqService->publish(json_encode($message), "parceirosalhador_queue");
+        $mqService->publish(json_encode($message), "parceiros_queue");
         $response_message = $mqService->consume_queue("api_queue_".$uuidString);
 
         $mqService->deleteQueue("api_queue_".$uuidString);
@@ -271,7 +271,7 @@ class ApiParceirosController extends Controller
             'id' => $id
         ];
         $mqService = new RabbitMQService();
-        $mqService->publish(json_encode($message), "parceirosalhador_queue");
+        $mqService->publish(json_encode($message), "parceiros_queue");
         $response_message = $mqService->consume_queue("api_queue_".$uuidString);
 
         $mqService->deleteQueue("api_queue_".$uuidString);
