@@ -5,6 +5,12 @@
 <p>
 A iniciativa abraça três pilares fundamentais: a oferta de vagas em cursos de capacitação, a disponibilização de oportunidades de emprego e a facilitação de acesso a microcréditos. O programa é voltado para pessoas em situação de vulnerabilidade social, como beneficiários do Bolsa Família, desempregados, jovens em busca do primeiro emprego, trabalhadores autônomos e microempreendedores individuais (MEIs).</p>
 
+## Arquitetura do Projeto
+
+A imagem a seguir ilustra a arquitetura do projeto.
+
+![Arquitetura do Projeto](ArquiteturaProgredir.png)
+
 ## Tecnologias Utilizadas
 * [PHP](https://www.php.net/)
 * [Laravel](https://laravel.com/)
