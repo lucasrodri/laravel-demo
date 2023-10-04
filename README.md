@@ -69,11 +69,5 @@ $ docker-compose up -d --build
  - [http://localhost:15672](http://localhost:15672) -> RABBITMQ
 
 ## Equipe
-* [Diego José Macedo](mailto:diegomacedo@ibict.br)
 * [Lucas Rodrigues Costa](mailto:lucasrodrigues@ibict.br)
-* [Rebeca dos Santos de Moura](mailto:rebecamoura@ibict.br)
-* [Lendro Chaves](mailto:leandrochaves@ibict.br)
-* [Rafael Roque](mailto:rafaelroque@ibict.br)
-* [Victor Braga](mailto:victorbraga@ibict.br)
-* [Vitor Mateus](mailto:vitormateus@ibict.br)
-* [Jaqueline Guitierri](mailto:jaquelineguitierri@ibict.br)
+
