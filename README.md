@@ -61,6 +61,12 @@ $ git clone https://XXX NOTIFICACOES
 $ docker-compose up -d --build
 ``` 
 
+## Executando o ambiente
+ Entre no navegador e acesse os seguintes  endereço:
+ 
+ - [http://localhost:3000](http://localhost:3000) -> FrontEnd
+- [http://localhost:8000/swagger](http://localhost:8000/swagger) -> API
+
 ## Equipe
 * [Diego José Macedo](mailto:diegomacedo@ibict.br)
 * [Lucas Rodrigues Costa](mailto:lucasrodrigues@ibict.br)
