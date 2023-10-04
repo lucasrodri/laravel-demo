@@ -33,3 +33,10 @@ Route::get('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'getTr
 Route::post('trabs', [\App\Http\Controllers\ApiTrabController::class, 'createTrab']);
 Route::put('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'updateTrab']);
 Route::delete('trabs/{id}', [\App\Http\Controllers\ApiTrabController::class, 'deleteTrab']);
+
+# Rotas para o CRUD de elementos do microserviço de parceiros
+Route::get('parceiros', [\App\Http\Controllers\ApiParceirosController::class, 'getAllParceiross']);
+Route::get('parceiros/{id}', [\App\Http\Controllers\ApiParceirosController::class, 'getParceiros']);
+Route::post('parceiros', [\App\Http\Controllers\ApiParceirosController::class, 'createParceiros']);
+Route::put('parceiros/{id}', [\App\Http\Controllers\ApiParceirosController::class, 'updateParceiros']);
+Route::delete('parceiros/{id}', [\App\Http\Controllers\ApiParceirosController::class, 'deleteParceiros']);

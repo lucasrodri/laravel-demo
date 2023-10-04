@@ -59,6 +59,25 @@ services:
     volumes:
       - ./TRABALHADOR/app:/var/www
 
+  parceiros:
+    image: parceiros
+    container_name: parceiros-app
+    build:
+      args:
+        user: lucas
+        uid: 1000
+      context: ./PARCEIROS
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - progredir
+    volumes:
+      - ./PARCEIROS/app:/var/www
+
   frontend:
     build:
       context: ./FrontEnd

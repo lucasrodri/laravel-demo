@@ -229,6 +229,173 @@ paths:
       responses:
         '202':
           description: 'Display a listing of the resource'
+  /api/parceiros:
+    get:
+      tags:
+        - Parceiros
+      summary: 'Obtenha uma lista de parceiros'
+      operationId: 331ccceb05a8d94d50f6ace8651627ac
+      responses:
+        '200':
+          description: 'Retorna uma lista de parceiros'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: SHOW }
+                  content: { type: array, items: { type: object } }
+                  status: { type: integer, example: 200 }
+                type: object
+    post:
+      tags:
+        - Parceiros
+      summary: 'Criar um novo parceiros'
+      description: 'Cria um novo parceiros com nome e texto.'
+      operationId: 2b8508c98227267e3b5be181391158cc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  example: João
+                body:
+                  type: string
+                  example: 'Ciência da Computação'
+              type: object
+      responses:
+        '201':
+          description: 'Parceiros criado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Parceiros criado com sucesso' }
+                  id: { type: integer, example: 1 }
+                type: object
+        '400':
+          description: 'Erro na criação do parceiros'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Erro na criação do parceiros' }
+                type: object
+  '/api/parceiros/{id}':
+    get:
+      tags:
+        - Parceiros
+      summary: 'Obtém informações de um parceirosistrador'
+      operationId: 39ba2611756d0b3a86c0d5c19874d624
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do parceirosistrador a ser consultado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Informações do parceirosistrador'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: READ }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Parceiros não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Parceiros não encontrado' }
+                type: object
+    put:
+      tags:
+        - Parceiros
+      summary: 'Atualiza um parceirosistrador'
+      operationId: 239df03634a8e8e28124d2d5d6818b43
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do parceirosistrador a ser atualizado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: 'Dados do parceirosistrador para atualização'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  description: 'Nome do parceirosistrador'
+                  type: string
+                body:
+                  description: 'Curso do parceirosistrador'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'Parceiros atualizado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Registros atualizados com sucesso' }
+                type: object
+        '404':
+          description: 'Parceiros não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Parceiros não encontrado' }
+                type: object
+    delete:
+      tags:
+        - Parceiros
+      summary: 'Deleta um parceirosistrador'
+      operationId: a95f173d7df2c28f3bf644fedc3308ae
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do parceirosistrador a ser deletado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '202':
+          description: 'Parceirosistrador deletado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: DELETE }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Parceiros não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Parceiros não encontrado' }
+                type: object
   /api/trabs:
     get:
       tags:
