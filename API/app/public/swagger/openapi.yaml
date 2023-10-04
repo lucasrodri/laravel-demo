@@ -5,6 +5,173 @@ info:
     email: lucasrc.rodri@gmail.com
   version: 1.0.0
 paths:
+  /api/admins:
+    get:
+      tags:
+        - Admins
+      summary: 'Obtenha uma lista de administradores'
+      operationId: c5acb38f8f959e6b8843a1f8542a8e52
+      responses:
+        '200':
+          description: 'Retorna uma lista de administradores'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: SHOW }
+                  content: { type: array, items: { type: object } }
+                  status: { type: integer, example: 200 }
+                type: object
+    post:
+      tags:
+        - Admins
+      summary: 'Criar um novo admin'
+      description: 'Cria um novo admin com nome e texto.'
+      operationId: b11ca0c9763f9d0066aa85b5b6c4affc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  example: João
+                body:
+                  type: string
+                  example: 'Ciência da Computação'
+              type: object
+      responses:
+        '201':
+          description: 'Admin criado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Admin criado com sucesso' }
+                  id: { type: integer, example: 1 }
+                type: object
+        '400':
+          description: 'Erro na criação do admin'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Erro na criação do admin' }
+                type: object
+  '/api/admins/{id}':
+    get:
+      tags:
+        - Admins
+      summary: 'Obtém informações de um administrador'
+      operationId: 72068a1a90a1dc5d340716fff4fa5b16
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do administrador a ser consultado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Informações do administrador'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: READ }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Admin não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Admin não encontrado' }
+                type: object
+    put:
+      tags:
+        - Admins
+      summary: 'Atualiza um administrador'
+      operationId: ebf8114c493318f19cb82e775972c931
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do administrador a ser atualizado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: 'Dados do administrador para atualização'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  description: 'Nome do administrador'
+                  type: string
+                body:
+                  description: 'Curso do administrador'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'Admin atualizado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Registros atualizados com sucesso' }
+                type: object
+        '404':
+          description: 'Admin não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Admin não encontrado' }
+                type: object
+    delete:
+      tags:
+        - Admins
+      summary: 'Deleta um administrador'
+      operationId: b4d6c366c6f342da41b2c36384ca128f
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do administrador a ser deletado'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '202':
+          description: 'Administrador deletado com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  request_UUID: { type: string, example: UUID }
+                  action: { type: string, example: DELETE }
+                  id: { type: integer, example: '1' }
+                type: object
+        '404':
+          description: 'Admin não encontrado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Admin não encontrado' }
+                type: object
   /api/students:
     get:
       operationId: e4f0d952747276208d5e417c601ee049

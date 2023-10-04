@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ContactPage } from './pages/ContactPage';
 import { APIDataPage } from './pages/APIDataPage';
 import { APIStudentShowAll, APIStudentShowOne, APIStudentCreateEdit } from './pages/APIStudentPage';
+import { APIAdminShowAll, APIAdminShowOne, APIAdminCreateEdit } from './pages/APIAdminPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export const AppRoutes = () => {
@@ -24,7 +25,7 @@ export const AppRoutes = () => {
               <Link to='/students' className="nav-link" >Students API</Link>
             </li>
             <li class="nav-item">
-              <Link to='/students/create' className="nav-link" >Students API (Create)</Link>
+              <Link to='/admins' className="nav-link" >Admin API</Link>
             </li>
           </ul>
         </div>
@@ -37,6 +38,11 @@ export const AppRoutes = () => {
         <Route path='/students/:id' element={<APIStudentShowOne />} />
         <Route path='/students/:id/edit' element={<APIStudentCreateEdit />} />
         <Route path='/students/create' element={<APIStudentCreateEdit />} />
+        {/* Rotas da API admins */}
+        <Route path='/admins' element={<APIAdminShowAll />} />
+        <Route path='/admins/:id' element={<APIAdminShowOne />} />
+        <Route path='/admins/:id/edit' element={<APIAdminCreateEdit />} />
+        <Route path='/admins/create' element={<APIAdminCreateEdit />} />
         {/* Rota coringa para a página "Not Found" */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

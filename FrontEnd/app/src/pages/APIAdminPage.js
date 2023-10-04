@@ -3,37 +3,38 @@ import api from '../api';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const StudentDetailCard = ({ student, showbuttons = true }) => {
+export const AdminDetailCard = ({ admin, showbuttons = true }) => {
   return (
     <div className="card">
       <div className="card-body">
-        <h2 className="card-title">Detalhes do Estudante {student.id}</h2>
+        <h2 className="card-title">Detalhes do Admin {admin.id}</h2>
         <ul>
-          <li><strong>ID:</strong> {student.id}</li>
-          <li><strong>Name:</strong> {student.name}</li>
-          <li><strong>Course:</strong> {student.course}</li>
-          <li><strong>Created At:</strong> {student.created_at}</li>
-          <li><strong>Updated At:</strong> {student.updated_at}</li>
+          <li><strong>ID:</strong> {admin.id}</li>
+          <li><strong>Title:</strong> {admin.title}</li>
+          <li><strong>Body:</strong> {admin.body}</li>
+          <li><strong>Created At:</strong> {admin.created_at}</li>
+          <li><strong>Updated At:</strong> {admin.updated_at}</li>
         </ul>
         {showbuttons ? (
           <div>
-            <HandleEdit id={student.id} />
-            <HandleDelete id={student.id} />
-            <Link to={`/students`} className='btn btn-secondary'>Voltar</Link>
+            <HandleEdit id={admin.id} />
+            <HandleDelete id={admin.id} />
+            <Link to={`/admins`} className='btn btn-secondary'>Voltar</Link>
           </div>
         ) : (
-          <Link to={`/students/${student.id}`} className='btn btn-secondary'>Ver detalhes</Link>
+          <Link to={`/admins/${admin.id}`} className='btn btn-secondary'>Ver detalhes</Link>
         )}
       </div>
     </div>
   );
 };
 
+
 export const HandleEdit = ({ id }) => {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate(`/students/${id}/edit`);
+    navigate(`/admins/${id}/edit`);
   };
 
   return (
@@ -41,13 +42,14 @@ export const HandleEdit = ({ id }) => {
   );
 };
 
+
 export const HandleDelete = ({ id }) => {
   const navigate = useNavigate();
 
   const handleDeleteClick = async () => {
     try {
-      await api.delete(`/students/${id}`);
-      navigate('/students'); // Redirecionar de volta para a lista após a exclusão
+      await api.delete(`/admins/${id}`);
+      navigate('/admins'); // Redirecionar de volta para a lista após a exclusão
     } catch (error) {
       console.error('Erro ao apagar estudante:', error);
     }
@@ -58,33 +60,34 @@ export const HandleDelete = ({ id }) => {
   );
 };
 
+
 // Componente reutilizável para obter a lista de estudantes
-const StudentList = () => {
-  const [students, setStudents] = useState([]);
+const AdminList = () => {
+  const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
-    const fetchStudents = async () => {
+    const fetchAdmins = async () => {
       try {
-        const response = await api.get('/students');
-        setStudents(response.data);
+        const response = await api.get('/admins');
+        setAdmins(response.data);
       } catch (error) {
-        console.error('Erro ao buscar estudantes:', error);
+        console.error('Erro ao buscar admins:', error);
       }
     };
 
-    fetchStudents();
+    fetchAdmins();
   }, []);
 
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
-        <h2>Lista de Estudantes Cadastrados na API</h2>
-        <Link to={`/students/create`} className='btn btn-primary ml-custom'>Criar Estudante</Link>
+        <h2>Lista de Admins Cadastrados na API</h2>
+        <Link to={`/admins/create`} className='btn btn-primary ml-custom'>Criar Admin</Link>
       </div>
-      {students.map((student) => (
-        <div key={student.id}>
-          <StudentDetailCard
-            student={student}
+      {admins.map((admin) => (
+        <div key={admin.id}>
+          <AdminDetailCard
+            admin={admin}
             showbuttons={false}
           />
         </div>
@@ -93,18 +96,19 @@ const StudentList = () => {
   );
 };
 
-export const APIStudentShowOne = () => {
-  const [student, setStudent] = useState({});
+
+export const APIAdminShowOne = () => {
+  const [admin, setAdmin] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchStudent = async () => {
+    const fetchAdmin = async () => {
       try {
-        const response = await api.get(`/students/${id}`);
+        const response = await api.get(`/admins/${id}`);
         if (response.data.id) {
-          setStudent(response.data);
+          setAdmin(response.data);
         } else {
-          setStudent({});
+          setAdmin({});
         }
       } catch (error) {
         console.error('Erro ao buscar estudante:', error);
@@ -112,47 +116,47 @@ export const APIStudentShowOne = () => {
     };
 
     if (id) {
-      fetchStudent();
+      fetchAdmin();
     }
   }, [id]);
 
   return (
     <div>
-      {student.id === undefined ? (
-        <p>Estudante não encontrado!</p>
+      {admin.id === undefined ? (
+        <p>Admin não encontrado!</p>
       ) : (
-        <StudentDetailCard
-          student={student}
+        <AdminDetailCard
+          admin={admin}
         />
       )}
     </div>
   );
 };
 
-export const APIStudentShowAll = () => {
+export const APIAdminShowAll = () => {
   return (
     <div>
-      <StudentList />
+      <AdminList />
     </div>
   );
 };
 
-export const APIStudentCreateEdit = () => {
+export const APIAdminCreateEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [studentData, setStudentData] = useState({
-    name: '',
+  const [adminData, setAdminData] = useState({
+    title: '',
     course: '',
   });
 
   // Função para buscar os dados do estudante a ser editado
-  const fetchStudentData = async () => {
+  const fetchAdminData = async () => {
     try {
-      const response = await api.get(`/students/${id}`);
+      const response = await api.get(`/admins/${id}`);
       if (response.status === 200) {
         if (response.data.id) {
           // Se o estudante existir, preencha os dados do estudante
-          setStudentData(response.data);
+          setAdminData(response.data);
         } else {
           // Se o estudante não existir, redirecione para a página 404
           navigate('/404'); // Redirecione para a rota de erro 404
@@ -169,7 +173,7 @@ export const APIStudentCreateEdit = () => {
 
   useEffect(() => {
     if (id) {
-      fetchStudentData();
+      fetchAdminData();
     }
   }, [id]);
 
@@ -179,12 +183,12 @@ export const APIStudentCreateEdit = () => {
     try {
       if (id) {
         // Se houver um ID, estamos editando, então usamos o método PUT
-        await api.put(`/students/${id}`, studentData);
-        navigate(`/students/${id}`); // Redirecionar para a página de visualização
+        await api.put(`/admins/${id}`, adminData);
+        navigate(`/admins/${id}`); // Redirecionar para a página de visualização
       } else {
         // Caso contrário, estamos criando um novo estudante, usamos o método POST
-        const response = await api.post('/students', studentData);
-        navigate(`/students/${response.data.id}`); // Redirecionar para a página de visualização após a criação
+        const response = await api.post('/admins', adminData);
+        navigate(`/admins/${response.data.id}`); // Redirecionar para a página de visualização após a criação
       }
 
       // Redirecione ou faça algo após o sucesso
@@ -195,36 +199,36 @@ export const APIStudentCreateEdit = () => {
 
   return (
     <div>
-      <h2>{id ? 'Editar Estudante' : 'Criar Estudante'}</h2>
+      <h2>{id ? 'Editar Admin' : 'Criar Admin'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">
+          <label htmlFor="title" className="form-label">
             Nome:
           </label>
           <input
             type="text"
             className="form-control"
-            id="name"
-            name="name"
-            value={studentData.name}
+            id="title"
+            name="title"
+            value={adminData.title}
             onChange={(e) =>
-              setStudentData({ ...studentData, name: e.target.value })
+              setAdminData({ ...adminData, title: e.target.value })
             }
             required
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="course" className="form-label">
+          <label htmlFor="body" className="form-label">
             Curso:
           </label>
           <input
             type="text"
             className="form-control"
-            id="course"
-            name="course"
-            value={studentData.course}
+            id="body"
+            name="body"
+            value={adminData.body}
             onChange={(e) =>
-              setStudentData({ ...studentData, course: e.target.value })
+              setAdminData({ ...adminData, body: e.target.value })
             }
             required
           />
@@ -232,7 +236,7 @@ export const APIStudentCreateEdit = () => {
         <button type="submit" className="btn btn-primary">
           {id ? 'Editar' : 'Criar'}
         </button>
-        <Link to={`/students`} className='btn btn-secondary'>Voltar</Link>
+        <Link to={`/admins`} className='btn btn-secondary'>Voltar</Link>
       </form>
     </div>
   );

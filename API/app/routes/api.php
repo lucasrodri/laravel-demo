@@ -36,3 +36,10 @@ Route::get('students/{id}', [\App\Http\Controllers\ApiController::class, 'getStu
 Route::post('students', [\App\Http\Controllers\ApiController::class, 'createStudent']);
 Route::put('students/{id}', [\App\Http\Controllers\ApiController::class, 'updateStudent']);
 Route::delete('students/{id}', [\App\Http\Controllers\ApiController::class, 'deleteStudent']);
+
+# Rotas para o CRUD de elementos do microserviço de administrador
+Route::get('admins', [\App\Http\Controllers\ApiAdminController::class, 'getAllAdmins']);
+Route::get('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'getAdmin']);
+Route::post('admins', [\App\Http\Controllers\ApiAdminController::class, 'createAdmin']);
+Route::put('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'updateAdmin']);
+Route::delete('admins/{id}', [\App\Http\Controllers\ApiAdminController::class, 'deleteAdmin']);
