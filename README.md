@@ -1,9 +1,8 @@
-# Sistema do Programa Redução da Pobreza - SISPRP
+# Exemplo de Aplicação Microserviços 
+#### Laravel + React + Docker Compose + PostgreSQL + RabbitMQ
 
 ## Descrição do Projeto
-<p align="justify">O projeto SISPRP visa primordialmente atender às necessidades daqueles inscritos no cadastro único, estabelecendo uma abordagem proativa para auxiliá-los a desvincular-se das políticas governamentais de combate ao desemprego. Nossa missão é empoderar esses indivíduos, capacitando-os com os conhecimentos e recursos necessários para conquistar uma independência financeira duradoura.</p>
-<p>
-A iniciativa abraça três pilares fundamentais: a oferta de vagas em cursos de capacitação, a disponibilização de oportunidades de emprego e a facilitação de acesso a microcréditos. O programa é voltado para pessoas em situação de vulnerabilidade social, como beneficiários do Bolsa Família, desempregados, jovens em busca do primeiro emprego, trabalhadores autônomos e microempreendedores individuais (MEIs).</p>
+<p>Este projeto é um exemplo de aplicação de microserviços utilizando Laravel, React, Docker Compose, PostgreSQL e RabbitMQ implementando uma arquitetura simples baseada em microserviços.</p>
 
 ## Arquitetura do Projeto
 
@@ -27,32 +26,16 @@ A imagem a seguir ilustra a arquitetura do projeto.
 
 ### Clonando o repositório
 ```bash
-$ git clone https://XXX SISPRP
+$ git clone https://github.com/lucasrodri/laravel-demo
 ```
 
 ### Configurando o ambiente
 ```bash
-$ touch .env
+$ cd laravel-demo
 $ cp .env.example .env
 ``` 
 
 > Edite o arquivo `.env` e configure as variáveis de ambiente de acordo com o seu ambiente.
-
-### Entre na pasta do projeto
-```bash
-$ cd SISPRP
-```
-
-### Clone os repositórios dos demais microserviços
-```bash
-$ git clone https://XXX FrontEnd
-$ git clone https://XXX API
-$ git clone https://XXX ADMIN
-$ git clone https://XXX TRABALHADOR
-$ git clone https://XXX PARCEIROS
-$ git clone https://XXX AUTH
-$ git clone https://XXX NOTIFICACOES
-```
 
 > Entre em cada pasta dos microserviços e siga as instruções de instalação do README.md de cada um.
 
@@ -70,4 +53,3 @@ $ docker-compose up -d --build
 
 ## Equipe
 * [Lucas Rodrigues Costa](mailto:lucasrodrigues@ibict.br)
-
